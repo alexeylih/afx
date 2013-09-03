@@ -1,0 +1,15 @@
+Feature ideas: 
+# Twitter pluginasd
+# Feedburner plugin
+# Autodiscovery 
+# Share item
+
+Issues:
+Stop animation on failed request 
+Encoding issue on NSA 
+
+Tasks:
+Add test for client 
+Add test for server 
+Add users model
+Add authentication to user model

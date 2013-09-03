@@ -1,0 +1,29 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<channel>
+<copyright>Copyright 2013 Medical News Today</copyright>
+<description>
+Latest Health News and Medical News posted throughout the day, every day.
+</description>
+<link>http://www.medicalnewstoday.com/sections/abortion/</link>
+<title>Abortion News From Medical News Today</title>
+<webMaster>admin@medicalnewstoday.com (MNT Admin)</webMaster>
+<managingEditor>editors@medicalnewstoday.com (MNT Editors)</managingEditor>
+<language>en-us</language>
+	<item>
+	<title>
+	Modern Methods Of Abortion Are Not Linked With An Increased Risk Of Preterm Birth
+	</title>
+	<pubDate>Tue, 09 Jul 2013 14:00:00 PDT</pubDate>
+	<link>
+	http://www.medicalnewstoday.com/releases/262870.php
+	</link>
+	<guid>
+	http://www.medicalnewstoday.com/releases/262870.php
+	</guid>
+	<description>
+	The link between previous termination of pregnancy (abortion) and preterm delivery in a subsequent pregnancy has disappeared over the last 20-30 years, according to a study of data from Scotland published in this week's PLOS Medicine...
+	</description>
+	<category domain="http://www.medicalnewstoday.com/sections/abortion/">Abortion</category>
+	</item>
+</channel>
+</rss>	

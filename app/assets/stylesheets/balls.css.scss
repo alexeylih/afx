@@ -35,16 +35,55 @@
   background:red;
 }
 
-.blue {
-  background:blue; 
+.headerRead {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 200;
+}
+
+.headerUnread {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight:bold;
+}
+
+.preview-text-invisible {
+  display:none;
+  font-family: "ff-tisa-web-pro",Georgia,Cambria,"Times New Roman",Times,serif;
+  font-weight: 400;
+  color: #333332;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .preview-text {
-  background:yellow; 
-  font-size:10px;
-  visibility:hidden;
-
+  border-style:solid;
+  border-width:1px;
+  display:block;
+  font-family: "ff-tisa-web-pro",Georgia,Cambria,"Times New Roman",Times,serif;
+  font-weight: 400;
+  color: #333332;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
+.fade-hide, .fade-show {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+.fade-hide {
+    opacity:1;
+}
+.fade-hide.fade-hide-active {
+    opacity:0;
+}
+.fade-show {
+    opacity:0;
+}
+.fade-show.fade-show-active {
+    opacity:1;
+}
 
 

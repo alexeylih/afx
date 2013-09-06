@@ -30,16 +30,20 @@
     </ul>
   </div>
 
-
+      <!-- <button ng-click="hidden=true">I don't want it</button>
+        <button ng-click="hidden=false">I want it</button> -->
 
   <div class="small-9 columns">
     <div ng-repeat="entr in subitems">
       <span data-ng-class="getClass(entr)" ng-click="setArticleRead(entr)">
         {{entr.title}}  
-
       </span>
-     <span class="preview-text">  {{entr.preview}}  </span>
-            
+      
+     <div ng-show="entr.hidden == true" ng-animate="'fade'">         
+      <span class="preview-text">  {{entr.preview}}  </span> 
+    </div>
+
+
     </div>
   </div>
 

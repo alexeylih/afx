@@ -29,7 +29,11 @@ class FeedsController < ApplicationController
 
   def create
     current_user = User.find(2)
-    current_user.feeds.create(title: params[:title], url: params[:url]) unless current_user.feeds.find_by_url(params[:url])
+    feed = current_user.feeds.create(title: params[:title], url: params[:url]) unless current_user.feeds.find_by_url(params[:url])
+    event = Event.new 
+    event.user = current_user
+    event.subject = feed
+    event.save
   end
 
   def valid_url?(url)
@@ -42,6 +46,7 @@ class FeedsController < ApplicationController
   end
 
   private 
+  
   def feed_params
       #params.require('feed').permit(:title)
   end

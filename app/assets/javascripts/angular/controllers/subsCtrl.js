@@ -10,7 +10,7 @@ function SubsCtrl($scope, $http, subsFactory) {
 
 	$scope.subs = subsFactory.getSubs();
 	$scope.loadingItemsCount = 0;
-
+    
 
 	$scope.loadData = function(feed_id) {
 		$scope.showMe = true;
@@ -19,11 +19,12 @@ function SubsCtrl($scope, $http, subsFactory) {
   	};
 
   	$scope.getClass = function(article) {
-    	return { blue: article.read == false};
+    	return { headerUnread: article.read == false };
     };
 
     $scope.setArticleRead = function(article)
     {
+        article.hidden = !article.hidden;
     	article.read = true;
     	url = "reading_articles/" + article.id + "/read"
     	$http.get(url);

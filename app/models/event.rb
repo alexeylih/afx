@@ -6,7 +6,6 @@ class Event < ActiveRecord::Base
 		created_at.to_s + " " + user.name + " " + verb + " " + subject.title
 	end 
 
-  	
 	def as_json(options = { })
     	jsonEvent = super(options)
     	jsonEvent[:text] = to_s    	

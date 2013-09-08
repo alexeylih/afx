@@ -19,8 +19,11 @@ class User < ActiveRecord::Base
   end
   
   def self.new_with_session(params, session)
+  	logger.debug "self.new_with_session"
     if session["devise.user_attributes"]
+    	logger.debug session["devise.user_attributes"]
       new session["devise.user_attributes"] do |user|
+      	logger.debug "new sesion"
         user.attributes = params
         user.valid?
       end

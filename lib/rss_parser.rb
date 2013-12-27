@@ -2,7 +2,8 @@ require 'nokogiri'
 
 class RssParser
 
-	def initialize 
+	def initialize(logger)
+
 		@parsing_schemas = { 
 			atom: {
 				feed_item: "//rss/channel/item",
@@ -10,9 +11,13 @@ class RssParser
 			}
 			
 		}
+
+		@logger = logger
 	end
 
 	def parse(xml_data, format=:atom)
+		@logger.debug "parsing"
+
 		articles = []
 		schema = @parsing_schemas[format][:feed_item]
 		doc = Nokogiri::XML(xml_data)

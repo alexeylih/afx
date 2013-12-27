@@ -1,0 +1,48 @@
+//Should be completed with Json API
+
+Story 1
+----------------
+
+Socrates logins 
+Socrates see all his feeds
+Socrates adds new feed 
+Socrates reads number of feeds 
+Socrates logs out 
+Plato logins
+Plato gets existing feed (one that Socrates added)
+"read\not-read" appears correct
+
+Story 2
+-----------------------
+Socrates, Plato and Archimedes are friends
+Plato adds 3 new feeds
+Plato likes some feed
+Archimedes adds Fales as friend
+Socarates can see Plato and Archimedes activity from his "Friends activity page"
+
+
+Story 3
+---------------------------
+Plato adds one feed
+He reads couple of articles
+He removes the feed
+He adds the feed again
+All articles appear as "unread"
+
+
+Story 4
+--------------------------
+Show 5 most popular feeds
+
+
+
+Story 5
+---------------------------
+Feeds data updated 
+When reading new articles are shown
+
+
+Story 6
+-------------------------
+Recomendations ??
+

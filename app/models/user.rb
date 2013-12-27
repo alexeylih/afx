@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     if session["devise.user_attributes"]
     	logger.debug session["devise.user_attributes"]
       new session["devise.user_attributes"] do |user|
-      	logger.debug "new sesion"
+      	logger.debug "new session"
         user.attributes = params
         user.valid?
       end
@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
   def password_required?
     super && provider.blank?
   end
-
   def email_required?
   	super && provider.blank?
   end
@@ -47,5 +46,10 @@ class User < ActiveRecord::Base
       super
     end
   end  
+
+  has_and_belongs_to_many :feeds
+        has_many :reading_articles
+        has_many :articles, through: :reading_articles
+        has_many :events
 
 end

@@ -27,37 +27,35 @@ class ReadingArticle < ActiveRecord::Base
 	end
 
 	def self.add_reading_articles(feed_id, user_id, articles)
+		new_articles_added = 0
+		new_reading_articles_added = 0
+
 		articles.each do |new_article|
-			logger.debug "-------------------------------------------------------------------------------"
-			logger.debug "Adding article: "
 			logger.debug new_article.to_yaml
 
 			article_data = Article.find_by_url(new_article.url) 
 
-			logger.debug "Found existing  article: "
-			logger.debug article_data.to_yaml
-
 			unless article_data
-				logger.debug "Not found"
+				new_articles_added += 1
 				new_article.save!
 				article_data = new_article
 			end
-			
-			logger.debug "Article data: "
-			logger.debug article_data.to_yaml
 			
 			find_criteria = {article_id: article_data.id,
 							user_id: user_id,
 							feed_id: feed_id}
 
-			logger.debug "Searching for existing reading article: "
-			logger.debug find(:first, conditions: find_criteria)
-
-			reading_article = first(conditions: find_criteria) || create(find_criteria)
-		
+			existing_reading_article = first(conditions: find_criteria)
 			
+			if existing_reading_article
+				new_reading_articles_added += 1
+			end
 
+			reading_article = existing_reading_article || create(find_criteria)
+		
 		end
+
+		logger.debug "Processed #{articles.count} entries, Added #{new_articles_added} new articles and #{new_reading_articles_added} new reading articles"
 		
 	end 
 

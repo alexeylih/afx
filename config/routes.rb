@@ -9,6 +9,8 @@ ArctcFox::Application.routes.draw do
   get "feeds/index"
   get "feed/index"
   resources :feeds
+  
+
   resources :users
   resource :articles
   resources :subitems
@@ -19,6 +21,12 @@ ArctcFox::Application.routes.draw do
 
   get 'reading_articles/:id/like' => 'reading_articles#like'
   get 'reading_articles/:id/read' => 'reading_articles#read'
+
+  post 'relationships' => 'relationships#create'
+
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -21,6 +21,12 @@ Archimedes adds Fales as friend
 Socarates can see Plato and Archimedes activity from his "Friends activity page"
 
 
+Story 2.1
+---------------------
+Socrates adds Pythagores as friend
+Socrates recieves notification on this
+
+
 Story 3
 ---------------------------
 Plato adds one feed
@@ -33,7 +39,6 @@ All articles appear as "unread"
 Story 4
 --------------------------
 Show 5 most popular feeds
-
 
 
 Story 5

@@ -8,34 +8,26 @@ class FeedsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-  	@feeds = User.find(9).feeds.all
+  	@feeds = current_user.feeds.all
   	render json: @feeds
   end
 
   def show 
-    user_id = 10
-    current_user = User.find(user_id)
+    feed_id = params[:id]
+    feed = Feed.find(feed_id)
+    user_feed = current_user.feeds.find_by_id(feed_id)
+    current_user.feeds << feed unless user_feed
 
-    feed = Feed.find(params[:id])
-    
-    unless current_user.feeds.find(params[:id])
-      current_user.feeds << feed
-    end
-
-    logger.debug "Opening url #{feed.url}"
     xml_data = open(feed.url) 
-
 		rss_parser = RssParser.new(logger)
 		articles = rss_parser.parse(xml_data)
 
-    ReadingArticle.add_reading_articles(params[:id], user_id, articles)
-  	render json: User.find(user_id).feeds.find(params[:id]).reading_articles
-
+    ReadingArticle.add_reading_articles(feed_id, current_user.id, articles)
+  	render json: current_user.reading_articles.where(feed_id: feed_id)
   end 
 
-
   def create
-    current_user = User.find(9)
+    current_user = User.current_user
 
     # refactor here, convert to one liners
     feed = current_user.feeds.create(title: params[:title], url: params[:url]) unless current_user.feeds.find_by_url(params[:url])
@@ -53,10 +45,6 @@ class FeedsController < ApplicationController
       false
     end
   end
-
-  def top
-    
-  end 
 
   private 
   

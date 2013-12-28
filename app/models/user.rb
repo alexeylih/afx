@@ -5,6 +5,17 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable
 
+  has_and_belongs_to_many :feeds
+  has_many :reading_articles
+  has_many :articles, through: :reading_articles
+  has_many :events
+  has_many :relationships_as_obj, :class_name => 'Relationship',  :foreign_key => 'obj_id'
+  has_many :relationships_as_subj, :class_name => 'Relationship', :foreign_key => 'subj_id'
+
+  def relationships
+    relationships_as_obj + relationships_as_subj
+  end
+
  #attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   
   validates_presence_of :username
@@ -47,9 +58,6 @@ class User < ActiveRecord::Base
     end
   end  
 
-  has_and_belongs_to_many :feeds
-        has_many :reading_articles
-        has_many :articles, through: :reading_articles
-        has_many :events
+
 
 end

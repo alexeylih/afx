@@ -3,9 +3,8 @@ class RelationshipsController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 
 	def create 
-		relationship = Friendship.new ({obj_id: params[:obj_id], 
+		relationship = Friendship.new ({obj_id: current_user.id, 
 			 subj_id: params[:subj_id]})
-
 		relationship.save!
 	end
 

@@ -12,6 +12,4 @@ class Event < ActiveRecord::Base
     	jsonEvent
 	end
 
-
-
 end

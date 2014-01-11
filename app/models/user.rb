@@ -9,12 +9,29 @@ class User < ActiveRecord::Base
   has_many :reading_articles
   has_many :articles, through: :reading_articles
   has_many :events
-  has_many :relationships_as_obj, :class_name => 'Relationship',  :foreign_key => 'obj_id'
+
+  #user can both as object and as subject in Relationship
+  has_many :relationships_as_obj, :class_name => 'Relationship', :foreign_key => 'obj_id'
+  private :relationships_as_obj, :relationships_as_obj=
   has_many :relationships_as_subj, :class_name => 'Relationship', :foreign_key => 'subj_id'
+  private :relationships_as_subj, :relationships_as_subj=
+  has_many :friends_as_obj, :class_name => 'User', through: :relationships_as_obj, source: :subj
+  private :friends_as_obj, :friends_as_obj=
+  has_many :friends_as_subj, :class_name => 'User', through: :relationships_as_subj, source: :obj
+  private :friends_as_subj, :friends_as_subj=
 
   def relationships
     relationships_as_obj + relationships_as_subj
   end
+
+  def friends  
+    friends_as_obj + friends_as_subj 
+  end 
+
+  def add_friend(user)
+    friendship = Friendship.create({obj_id: id, subj_id: user.id})
+    friendship.subj
+  end 
 
  #attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   

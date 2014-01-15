@@ -16,6 +16,7 @@ ArctcFox::Application.routes.draw do
   resources :subitems
   resources :balls
   resources :events
+  resources :notifications
 
   get 'reading_articles/reset_all' => 'reading_articles#reset_all'
 

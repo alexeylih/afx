@@ -6,9 +6,9 @@ class ReadingArticle < ActiveRecord::Base
 	delegate :title, to: :article
     delegate :preview, to: :article
 
-	validates :user, :presence=>true
-	validates :feed, :presence=>true
-	validates :article, :presence=>true
+	validates :user, presence: true
+	validates :feed, presence: true
+	validates :article, presence: true
 
 	after_initialize :default_values
 

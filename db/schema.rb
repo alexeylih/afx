@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130908185555) do
+ActiveRecord::Schema.define(version: 20140115204851) do
 
   create_table "articles", force: true do |t|
     t.text     "title"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20130908185555) do
     t.integer "user_id"
   end
 
+  create_table "notifications", force: true do |t|
+    t.text     "type"
+    t.string   "recipient_id"
+    t.text     "arguments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reading_articles", force: true do |t|
     t.boolean  "read",       default: false
     t.boolean  "like",       default: false
@@ -75,6 +83,11 @@ ActiveRecord::Schema.define(version: 20130908185555) do
     t.text     "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "subscriptions_users", id: false, force: true do |t|
+    t.integer "subscription_id"
+    t.integer "user_id"
   end
 
   create_table "users", force: true do |t|

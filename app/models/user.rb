@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   has_many :reading_articles
   has_many :articles, through: :reading_articles
   has_many :events
+  has_many :notifications, :foreign_key => 'recipient_id'
+
+  validates_presence_of :username
+  validates_uniqueness_of :username
 
   #user can both as object and as subject in Relationship
   has_many :relationships_as_obj, :class_name => 'Relationship', :foreign_key => 'obj_id'
@@ -29,15 +33,18 @@ class User < ActiveRecord::Base
   end 
 
   def add_friend(user)
-    friendship = Friendship.create({obj_id: id, subj_id: user.id})
-    friendship.subj
+    Friendship.create!({obj_id: id, subj_id: user.id})
+    Event.create!({ user: self, verb: :add_friend, subject: user })
+    FriendNotification.create!({recipient: user})    
   end 
 
- #attr_accessible :email, :password, :password_confirmation, :remember_me, :username
-  
-  validates_presence_of :username
-  validates_uniqueness_of :username
+  def events_of_friends
+    # not efficient, use join instead
+    friends.collect { |a| a.events }
+  end
 
+  #authorization logic
+ 
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.provider = auth.provider

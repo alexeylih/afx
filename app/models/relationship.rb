@@ -1,8 +1,8 @@
 class Relationship < ActiveRecord::Base
-	validates :type, :presence => true
-	belongs_to :obj, class_name: "User"
-  	belongs_to :subj, class_name: "User"
-  	validates_presence_of :obj
+	  validates :type, presence: true
+	  belongs_to :obj, class_name: "User"
+    belongs_to :subj, class_name: "User"
+    validates_presence_of :obj
   	validates_presence_of :subj
   	validates :obj_id, presence: true
   	validates :subj_id, presence: true

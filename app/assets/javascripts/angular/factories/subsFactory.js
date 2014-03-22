@@ -1,9 +1,12 @@
-App.factory('subsFactory', ['$http', function ($http) {
+/*App.factory('subsFactory', ['$http', function ($http) {
 	var factory = {};
 
 	factory.getSubs = function() {
 		return $http.get('/feeds').then(function (response) {
         	return response.data;
+      }, 
+      function (response) {
+      	alert(response.data)
       });
 	};	
 
@@ -16,4 +19,5 @@ App.factory('subsFactory', ['$http', function ($http) {
 
 	return factory;
 
-}]);
+}]);*/
+

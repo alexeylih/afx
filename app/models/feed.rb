@@ -3,6 +3,5 @@ class Feed < ActiveRecord::Base
 	has_many :reading_articles
 	has_many :articles, through: :reading_articles
 	has_many :events, as: :subject
-
 	scope :by_users_count, :joins => :users, :group => "feeds.id"
 end

@@ -7,7 +7,7 @@ class RssParser
 		@parsing_schemas = { 
 			atom: {
 				feed_item: "//rss/channel/item",
-				feed_title: "//rss/channel/item"
+				feed_title: "//rss/channel/title"
 			}
 			
 		}
@@ -25,7 +25,7 @@ class RssParser
 			article = Article.new 
 			article.title = rss_item.at_xpath("title").text
 			article.url = rss_item.at_xpath("link").text
-			article.preview = rss_item.at_xpath("description").text
+			article.preview = rss_item.at_xpath("description") ? rss_item.at_xpath("description").text : ""
 			articles.push article
 		end
 
@@ -35,7 +35,7 @@ class RssParser
 	def parse_title(xml_data, format=:atom)
 		schema = @parsing_schemas[format][:feed_title]
 		doc = Nokogiri::XML(xml_data)
-		doc.to_s 
+		doc.at_xpath(schema).text
 	end
 
 	private

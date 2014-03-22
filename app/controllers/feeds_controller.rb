@@ -1,10 +1,9 @@
 require "rubygems"
 require "open-uri"
+require 'uri'
 require 'rss_parser'
 
-
 class FeedsController < ApplicationController
-
   skip_before_filter :verify_authenticity_token
 
   def index
@@ -13,28 +12,58 @@ class FeedsController < ApplicationController
   end
 
   def show 
-    feed_id = params[:id]
-    feed = Feed.find(feed_id)
-    user_feed = current_user.feeds.find_by_id(feed_id)
-    current_user.feeds << feed unless user_feed
+    begin
+      feed_id = params[:id]
+      feed = Feed.find(feed_id)
 
-    xml_data = open(feed.url) 
-		rss_parser = RssParser.new(logger)
-		articles = rss_parser.parse(xml_data)
+      user_feed = current_user.feeds.find_by_id(feed_id)
+      current_user.feeds << feed unless user_feed
 
-    ReadingArticle.add_reading_articles(feed_id, current_user.id, articles)
-  	render json: current_user.reading_articles.where(feed_id: feed_id)
+      articles = get_articles(feed.url)
+      ReadingArticle.add_reading_articles(feed_id, current_user.id, articles)
+  	  render json: current_user.reading_articles.where(feed_id: feed_id)
+
+    rescue => e
+      logger.debug e.to_s
+      render :json => { :errors => e.to_s }, :status => 500  
+    end
   end 
 
   def create
-    current_user = User.current_user
-
     # refactor here, convert to one liners
-    feed = current_user.feeds.create(title: params[:title], url: params[:url]) unless current_user.feeds.find_by_url(params[:url])
-    event = Event.new 
-    event.user = current_user
-    event.subject = feed
-    event.save
+    begin
+      url = params[:url]
+      feed = current_user.feeds.create(url: url, title: get_feed_title(url)) unless current_user.feeds.find_by_url(params[:url])
+      event = Event.new 
+      event.user = current_user
+      event.subject = feed
+      event.save
+      render json: feed
+    rescue => e
+      logger.debug e.to_s
+      render :json => { :errors => e.to_s }, :status => 500  
+    end
+  end
+
+  
+
+  private 
+  
+  def get_feed_title(url)
+    title = Feed.find_by_url(url)
+    unless title
+      rss_parser = RssParser.new(logger)
+      xml_data = open(url, {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}) 
+      title = rss_parser.parse_title(xml_data)
+    end
+
+    title
+  end
+
+  def get_articles(url)
+      xml_data = open(url, {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}) 
+      rss_parser = RssParser.new(logger)
+      articles = rss_parser.parse(xml_data)
   end
 
   def valid_url?(url)
@@ -46,8 +75,6 @@ class FeedsController < ApplicationController
     end
   end
 
-  private 
-  
   def feed_params
       #params.require('feed').permit(:title)
   end

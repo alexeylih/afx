@@ -1,21 +1,31 @@
+function SubsCtrl($scope, $http) {
 
-// }).controller('SubsCtrl', ['$scope',
-// function($scope, subsFactory) {
-// 	console.log('hello')
-// 	$scope.subs = subsFactory.getSubs();
+    function getSubs() {
+        return $http.get('/feeds').then(function (response) {
+            return response.data;
+      }, 
+      function (response) {
+        alert("Failed to retrieve feeds")
+      });
+    };  
 
-// }]);
+    function getSubitems(feed_id) {
+        url = '/feeds/' + feed_id;
+        return $http.get(url).then(function (response) {
+            return response.data;
+        }, 
+        function (response) {
+            alert("Failed to retrieve sub-feeds")
+        });
+    };  
 
-function SubsCtrl($scope, $http, subsFactory) {
-
-	$scope.subs = subsFactory.getSubs();
+	$scope.subs = getSubs();
 	$scope.loadingItemsCount = 0;
     
-
 	$scope.loadData = function(feed_id) {
 		$scope.showMe = true;
 		$scope.loadingItemsCount++;
-		$scope.subitems = subsFactory.getSubitems(feed_id);	
+		$scope.subitems = getSubitems(feed_id);	
   	};
 
   	$scope.getClass = function(article) {
@@ -31,13 +41,17 @@ function SubsCtrl($scope, $http, subsFactory) {
     };
 
     $scope.submit = function() {
-        console.log(this.urlToAdd);
         $http({
         method: 'POST',
         url: "feeds/",
         data: $.param({title: "jecky", url: this.urlToAdd}),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then(function(){}, function(){
+            alert("fail");
+        })
     };
+
+
 
 
 

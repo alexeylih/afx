@@ -1,37 +1,74 @@
-<div class="row panel">
-<div class="small-6 large-2 columns">
-  <h1>Reader</h1>
-</div>
-<div class="small-6 large-8 columns">
-<img src="http://cdn1.cdnme.se/cdn/7-2/282700/images/2008/engla_troll_1207574244_5911111.gif"/ height="60" width="75">
-</div>
+<div class="row">
+  <div class="poko" ng-controller="GeneralCtrl">
+    <a class="large-3 columns" id="logo">Reader</a>
+
+    <!-- Notifications -->
+    <a href="#" data-dropdown="drop1" class="dropdown large-3 columns">Notification</a>
+      <ul id="drop1" class="f-dropdown">
+        <li ng-repeat="notification in notifications">
+          <a href="#">{{notification}}</a>
+        </li> 
+    </ul>
+
+    <!-- Message -->
+    <a href="#" data-dropdown="drop1" class="dropdown large-3 columns">Messages</a>
+    <ul id="drop1" class="f-dropdown">
+    <li ng-repeat="notification in notifications">
+    <div class="row">
+        <img class="small-6 columns" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTXjCDGYctG2oryk7hEZlN1fzSKwA6baujsPg81oPeEuzVicjCY"/>
+        <a  class="small-2 columns" href="#">{{notification}}</a>
+    </div>
+      </div>
+    </li> 
+    </ul>
+
+    </div>
 
 </div>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 
-  <% if user_signed_in? %>  
-    Signed in as <%= current_user.username %>. Not you?  
-    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>  
-    <%= link_to 'Edit profile', edit_user_registration_path %>
-  <% else %>  
-    <%= link_to "Sign up", new_user_registration_path %> or  
-    <%= link_to "Sign in", new_user_session_path %>  
-    <li><%= link_to "Twitter", user_omniauth_authorize_path(:twitter) %></li>
-   </li> 
-  <% end %>  
+<!--Login-->
+<div class="row">
+<div class="small-5 columns">
 
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+    <% if user_signed_in? %>  
+      Signed in as <%= current_user.username %>. Not you?  
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>  
+      <%= link_to 'Edit profile', edit_user_registration_path %>
+    <% else %>  
+      <%= link_to "Sign up", new_user_registration_path %> or  
+      <%= link_to "Sign in", new_user_session_path %>  
+      <li><%= link_to "Twitter", user_omniauth_authorize_path(:twitter) %></li>
+     </li> 
+    <% end %>  
+</div>
+</div>
+<!-- End Login -->
+
+<div class="row"> -</div>
 
 <div ng-controller="SubsCtrl">
-<form>
-  <div class="small-9 columns">
-      <form>
-      <input type="text" ng-model="urlToAdd" name="text" />
-       <a href="#" class="button prefix" ng-click="submit()">Action</a>
+
+<!-- Search --> 
+  <div class="row">
+    <form>
+    <div class="small-4 columns">
+        <div class="row collapse">
+          <div class="small-8 columns">
+            <input type="text" ng-model="urlToAdd" name="text" />
+          </div>
+
+          <div class="small-4 columns end">
+            <a href="#" class="columns button postfix" ng-click="submit()">Action</a>
+          </div>
+          </div>
+        </div>
     </form>
   </div>
-</form>
+
 
 <div class="row">
   <div class="small-3 columns">
@@ -42,11 +79,6 @@
     </ul>
   </div>
 
-<!--<a href="#" data-dropdown="drop1" class="button dropdown">Dropdown Button</a><br>
-<ul id="drop1" class="f-dropdown">
-<li ng-repeat="sub in subs">
-  <a href="#">{{sub.title}}</a>
-</li> -->
 
   <div class="small-9 columns">
     <div ng-repeat="entr in subitems">
@@ -64,6 +96,9 @@
 
     <img ng-show="showMe" src="http://www.devcomponents.com/dotnetbar/img/CircularProgressAnimation.gif">
 </div>
+
+
+
 
 
 

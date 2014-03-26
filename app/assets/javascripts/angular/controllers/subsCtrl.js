@@ -50,12 +50,15 @@ function SubsCtrl($scope, $http) {
             alert("fail");
         })
     };
+}
 
+function GeneralCtrl($scope, $http) {
+    function getNotifications(){
+        var notifications = ['a','b', 'c'];
+        return notifications;
+    };
 
-
-
-
-
+    $scope.notifications = getNotifications();
 }
 
 

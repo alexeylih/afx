@@ -82,8 +82,23 @@
 .fade-show {
     opacity:0;
 }
+
+
 .fade-show.fade-show-active {
     opacity:1;
+}
+
+.poko {
+  background:#007095;
+  height:45px;
+}
+
+#logo {
+  color: #F6EDED;
+}
+
+.withBorder {
+  border-width:3px;
 }
 
 

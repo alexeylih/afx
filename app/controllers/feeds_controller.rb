@@ -18,10 +18,9 @@ class FeedsController < ApplicationController
 
       user_feed = current_user.feeds.find_by_id(feed_id)
       current_user.feeds << feed unless user_feed
-
       articles = get_articles(feed.url)
-      ReadingArticle.add_reading_articles(feed_id, current_user.id, articles)
-  	  render json: current_user.reading_articles.where(feed_id: feed_id)
+      ReadingArticle.add_reading_articles(feed_id, current_user.id, articles, logger)
+  	  render json: current_user.reading_articles.where(feed_id: feed_id).sort_by(&:created_at)
 
     rescue => e
       logger.debug e.to_s

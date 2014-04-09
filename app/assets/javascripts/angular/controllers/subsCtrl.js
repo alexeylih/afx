@@ -61,5 +61,18 @@ function GeneralCtrl($scope, $http) {
     $scope.notifications = getNotifications();
 }
 
+function UsersCtrl($scope, $http) {
+    function getUsers(){
+        return $http.get('/users').then(function (response) {
+            return response.data;
+      }, 
+      function (response) {
+        alert("Failed to retrieve users")
+      });
+    }
+
+    $scope.users = getUsers();
+}
+
 
 

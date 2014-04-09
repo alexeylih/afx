@@ -26,7 +26,7 @@ class ReadingArticle < ActiveRecord::Base
     	jsonReadingArticle
 	end
 
-	def self.add_reading_articles(feed_id, user_id, articles)
+	def self.add_reading_articles(feed_id, user_id, articles, logger)
 		new_articles_added = 0
 		new_reading_articles_added = 0
 
@@ -46,8 +46,8 @@ class ReadingArticle < ActiveRecord::Base
 							feed_id: feed_id}
 
 			existing_reading_article = first(conditions: find_criteria)
-			
-			if existing_reading_article
+
+			unless existing_reading_article
 				new_reading_articles_added += 1
 			end
 
@@ -56,7 +56,7 @@ class ReadingArticle < ActiveRecord::Base
 		end
 
 		logger.debug "Processed #{articles.count} entries, Added #{new_articles_added} new articles and #{new_reading_articles_added} new reading articles"
-		
+		articles.count
 	end 
 
 

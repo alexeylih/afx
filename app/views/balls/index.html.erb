@@ -18,7 +18,6 @@
         <img class="small-6 columns" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTXjCDGYctG2oryk7hEZlN1fzSKwA6baujsPg81oPeEuzVicjCY"/>
         <a  class="small-2 columns" href="#">{{notification}}</a>
     </div>
-      </div>
     </li> 
     </ul>
 
@@ -87,7 +86,7 @@
       </span>
       
      <div ng-show="entr.hidden == true" ng-animate="'fade'">         
-      <span class="preview-text">  {{entr.preview}}  </span> 
+      <span class="panel callout radius preview-text">  {{entr.preview}}  </span> 
     </div>
 
 
@@ -98,6 +97,24 @@
 </div>
 
 
+
+<div id="myModal" class="reveal-modal" data-reveal>
+ <!-- Users -->
+
+<div class="usersArea" ng-controller="UsersCtrl">
+  <div ng-repeat="user in users">
+    
+    <a class="th [radius]" href="#">
+      <img src="/assets/{{user.pic}}">
+    </a>
+  </div>
+</div>
+
+
+
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<a href="#" data-reveal-id="myModal">Click Me For A Modal</a>
 
 
 

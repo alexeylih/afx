@@ -9,8 +9,6 @@ ArctcFox::Application.routes.draw do
   get "feeds/index"
   get "feed/index"
   resources :feeds
-  
-
   resources :users
   resource :articles
   resources :subitems

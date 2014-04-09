@@ -32,6 +32,16 @@ class User < ActiveRecord::Base
     friends_as_obj + friends_as_subj 
   end 
 
+  def pic 
+    'userpic_' + self.id.to_s + '.jpg'
+  end
+
+  def as_json(options = { })
+      jsonEvent = super(options)
+      jsonEvent[:pic] = pic     
+      jsonEvent
+  end
+
   def add_friend(user)
     Friendship.create!({obj_id: id, subj_id: user.id})
     Event.create!({ user: self, verb: :add_friend, subject: user })

@@ -96,34 +96,34 @@
     <img ng-show="showMe" src="http://www.devcomponents.com/dotnetbar/img/CircularProgressAnimation.gif">
 </div>
 
+<a href="#" data-reveal-id="users_modal">Users</a>
 
-
-<div id="myModal" class="reveal-modal" data-reveal>
+<div id="users_modal" class="reveal-modal" data-reveal>
  <!-- Users -->
-
 <div class="usersArea" ng-controller="UsersCtrl">
-  <div ng-repeat="user in users">
-    
-    <a class="th [radius]" href="#">
-      <img src="/assets/{{user.pic}}">
-    </a>
-  </div>
-</div>
+  <ul class="large-block-grid-4">
+    <li ng-repeat="user in users">
+      <a class="th [radius]" href="#" >
+        <img data-dropdown="hover1" data-options="align:left" src="/assets/{{user.pic}}">
+      </a>
+      <p  class="user-title">{{user.username}}</p>
 
-
+          <ul id="hover1" class="f-dropdown" data-dropdown-content>
+            <li><a href="#">This is a link</a></li>
+            <li><a href="#">Yet another</a></li>
+         </ul>
+    </li>
+  </ul>
 
   <a class="close-reveal-modal">&#215;</a>
+
 </div>
-<a href="#" data-reveal-id="myModal">Click Me For A Modal</a>
+
+    
+  </div>
 
 
 
 
 
-
-  
-
-
-
- </div>
 

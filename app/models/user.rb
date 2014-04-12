@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end 
 
   def pic 
-    'userpic_' + self.id.to_s + '.jpg'
+    self.uploaded_pic ? 'userpic_' + self.id.to_s + '.jpg' : 'userpic_default.jpg'
   end
 
   def as_json(options = { })

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140115204851) do
+ActiveRecord::Schema.define(version: 20140412200721) do
 
   create_table "articles", force: true do |t|
     t.text     "title"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140115204851) do
     t.text     "username"
     t.text     "provider"
     t.text     "uid"
+    t.boolean  "uploaded_pic"
   end
 
   add_index "users", ["email", "provider", "uid"], name: "index_users_on_identity", unique: true

@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :articles, through: :reading_articles
   has_many :events
   has_many :notifications, :foreign_key => 'recipient_id'
+  has_many :recieved_messages, :class_name => 'Message', :foreign_key => 'reciever_id'
 
   validates_presence_of :username
   validates_uniqueness_of :username

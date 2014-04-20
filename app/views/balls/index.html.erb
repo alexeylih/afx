@@ -1,29 +1,41 @@
+  
 <div class="row">
-  <div class="poko" ng-controller="GeneralCtrl">
+  <div class="poko" ng-controller="MessagesCtrl">
     <a class="large-3 columns" id="logo">Reader</a>
 
     <!-- Notifications -->
-    <a href="#" data-dropdown="drop1" class="dropdown large-3 columns">Notification</a>
+<!--     <a href="#" data-dropdown="drop1" class="dropdown large-3 columns">Notification</a>
       <ul id="drop1" class="f-dropdown">
         <li ng-repeat="notification in notifications">
           <a href="#">{{notification}}</a>
         </li> 
-    </ul>
+    </ul> -->
 
     <!-- Message -->
-    <a href="#" data-dropdown="drop1" class="dropdown large-3 columns">Messages</a>
-    <ul id="drop1" class="f-dropdown">
-    <li ng-repeat="notification in notifications">
+    <a href="#" data-dropdown="drop1" data-options="large" ng-click="getMessages()" class="dropdown large-3 columns">Messages</a>
+    <ul id="drop1" class="f-dropdown" data-dropdown-content>
+    <li ng-repeat="message in messages">
     <div class="row">
-        <img class="small-6 columns" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTXjCDGYctG2oryk7hEZlN1fzSKwA6baujsPg81oPeEuzVicjCY"/>
-        <a  class="small-2 columns" href="#">{{notification}}</a>
+        <img class="small-6 columns" src="/assets/{{message.sender.pic}}"/>
+        {{message.message_text}}
     </div>
+    <a>&#215;</a>
     </li> 
     </ul>
 
+    <a href="#" data-reveal-id="users_modal">Activity</a>
+    <a href="#" data-reveal-id="users_modal">Feeds</a>
+    <a href="#" data-reveal-id="users_modal">Users</a>
+
+
     </div>
 
+
+
 </div>
+
+<i class="foundicon-cloud"></i>
+<i class="foundicon-heart"></i>
 
 
 <!--Login-->
@@ -61,7 +73,7 @@
           </div>
 
           <div class="small-4 columns end">
-            <a href="#" class="columns button postfix" ng-click="submit()">Action</a>
+            <a href="#" class="columns button postfix" ng-click="submit()">Add</a>
           </div>
           </div>
         </div>
@@ -70,7 +82,7 @@
 
 
 <div class="row">
-  <div class="small-3 columns">
+  <div class="large-3 columns">
     <ul class="side-nav">
       <li ng-repeat="sub in subs">
         <a ng-click="loadData(sub.id)">{{sub.title}}</a>
@@ -79,14 +91,14 @@
   </div>
 
 
-  <div class="small-9 columns">
+  <div class="large-9 columns">
     <div ng-repeat="entr in subitems">
       <span data-ng-class="getClass(entr)" ng-click="setArticleRead(entr)">
         {{entr.title}}  
       </span>
       
      <div ng-show="entr.hidden == true" ng-animate="'fade'">         
-      <span class="panel callout radius preview-text">  {{entr.preview}}  </span> 
+      <span class="panel radius preview-text">  {{entr.preview}}  </span> 
     </div>
 
 
@@ -96,24 +108,44 @@
     <img ng-show="showMe" src="http://www.devcomponents.com/dotnetbar/img/CircularProgressAnimation.gif">
 </div>
 
-<a href="#" data-reveal-id="users_modal">Users</a>
+ <div class="small-12 columns">
+ asd asdasd asdasd
+ </div>
+
+<div class="usersArea" ng-controller="UsersCtrl">
 
 <div id="users_modal" class="reveal-modal" data-reveal>
  <!-- Users -->
-<div class="usersArea" ng-controller="UsersCtrl">
+
   <ul class="large-block-grid-4">
     <li ng-repeat="user in users">
       <a class="th [radius]" href="#" >
-        <img data-dropdown="hover1" data-options="align:left" src="/assets/{{user.pic}}">
+        <img data-dropdown="hover1" data-options="align:left" src="/assets/{{user.pic}}" ng-click="setSelectedUser(user)" >
       </a>
-      <p  class="user-title">{{user.username}}</p>
-
-          <ul id="hover1" class="f-dropdown" data-dropdown-content>
-            <li><a href="#">This is a link</a></li>
-            <li><a href="#">Yet another</a></li>
-         </ul>
+      <p class="user-title">{{user.username}}</p>
+      <ul id="hover1" class="f-dropdown" data-dropdown-content>
+          <li><a href="#" ng-click="openModel()" data-reveal-id="messages_modal">Send message</a></li>
+      </ul> 
     </li>
   </ul>
+
+  <a class="close-reveal-modal">&#215;</a>
+
+</div>
+
+
+<!-- Messages -->
+
+<div id="messages_modal" class="reveal-modal" data-reveal>
+  <p>Send a message to {{selectedUser.username}}</p>
+  <div class="large-12 columns">
+     <a class="th [radius]" href="#" >
+        <img data-dropdown="hover1" data-options="align:left" src="/assets/{{selectedUser.pic}}">
+      </a> 
+        <textarea id="textArea" ng-model="messageText" placeholder="Enter your text..."></textarea>
+      </p>
+    <a href="#" ng-click="closeForm()" class="button [tiny small large]">Send</a>
+  </div>
 
   <a class="close-reveal-modal">&#215;</a>
 

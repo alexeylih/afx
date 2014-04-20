@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require_tree .
- */
  *= require foundation_and_overrides
+ *= require general_foundicons
+ */
  
-@import 'foundation-icons';

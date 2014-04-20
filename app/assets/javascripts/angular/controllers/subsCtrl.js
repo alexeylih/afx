@@ -61,7 +61,29 @@ function GeneralCtrl($scope, $http) {
     $scope.notifications = getNotifications();
 }
 
+function MessagesCtrl($scope, $timeout, $http){
+
+
+  
+      function getMessages(){
+        console.log(1);
+        return $http.get('/messages/recieved').then(function (response) {
+            $scope.messages = response.data;
+      }, 
+      function (response) {
+        alert("Failed to load recieved messages")
+      });
+    };   
+
+    $timeout(getMessages, 10);
+}
+
+
 function UsersCtrl($scope, $http) {
+
+    $scope.messageText = "";
+    $scope.users = getUsers();
+
     function getUsers(){
         return $http.get('/users').then(function (response) {
             return response.data;
@@ -69,9 +91,32 @@ function UsersCtrl($scope, $http) {
       function (response) {
         alert("Failed to retrieve users")
       });
-    }
+    };
 
-    $scope.users = getUsers();
+    $scope.setSelectedUser = function(user){
+        $scope.selectedUser = user;
+    };
+
+    $scope.openModel = function(user){
+        $('#messages_modal').foundation('reveal', 'open');
+    };
+
+    $scope.closeForm = function(){
+       $http({
+                method: 'POST',
+                url: "messages/",
+                data: $.param({reciever_id: $scope.selectedUser.id , message_text: $scope.messageText}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(function(){
+                $('#messages_modal').foundation('reveal', 'close');
+                $scope.messageText = "";
+            }, function (response) {
+                alert("Failed to send message");
+            });
+    };
+
+    
 }
 
 

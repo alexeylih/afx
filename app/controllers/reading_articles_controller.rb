@@ -3,7 +3,7 @@ class ReadingArticlesController < ApplicationController
   def read
   	@reading_article = ReadingArticle.find(params[:id])
   	@reading_article.read = true 
-  	@reading_article.save
+  	@reading_article.save!
 
   	render text: 'Read'
   end
@@ -11,7 +11,7 @@ class ReadingArticlesController < ApplicationController
   def like
   	@reading_article = ReadingArticle.find(params[:id])
   	@reading_article.like = true 
-  	@reading_article.save
+  	@reading_article.save!
   	render text: 'Liked'
   end
 

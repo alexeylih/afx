@@ -8,8 +8,11 @@ ArctcFox::Application.routes.draw do
   get "reading_articles/like"
   get "feeds/index"
   get "feed/index"
+
   resources :feeds
   resources :users
+  get 'friends' => 'users#friends'
+
   resource :articles
   resources :subitems
   resources :balls
@@ -22,6 +25,10 @@ ArctcFox::Application.routes.draw do
   get 'reading_articles/:id/read' => 'reading_articles#read'
 
   post 'relationships' => 'relationships#create'
+
+  #messages
+  post 'messages' => 'messages#send_message'
+  get 'messages/recieved' => 'messages#recieved'
 
 
 

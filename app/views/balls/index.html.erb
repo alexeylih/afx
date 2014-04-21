@@ -17,19 +17,17 @@
     <li ng-repeat="message in messages">
     <div class="row">
         <img class="small-6 columns" src="/assets/{{message.sender.pic}}"/>
-        {{message.message_text}}
+        <span data-ng-class="getMessageClass(message)">{{message.message_text}}</span>
     </div>
-    <a>&#215;</a>
+    <a ng-click="destroyMessage({{message.id}})")>&#215;</a>
     </li> 
     </ul>
+
+    </div>
 
     <a href="#" data-reveal-id="users_modal">Activity</a>
     <a href="#" data-reveal-id="users_modal">Feeds</a>
     <a href="#" data-reveal-id="users_modal">Users</a>
-
-
-    </div>
-
 
 
 </div>

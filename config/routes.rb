@@ -29,6 +29,8 @@ ArctcFox::Application.routes.draw do
   #messages
   post 'messages' => 'messages#send_message'
   get 'messages/recieved' => 'messages#recieved'
+  get 'messages/recieved/read' => 'messages#mark_all_as_read'
+  delete 'messages/:id' => 'messages#destroy'
 
 
 

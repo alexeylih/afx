@@ -16,7 +16,7 @@ class FeedsController < ApplicationController
       feed_id = params[:id]
       feed = Feed.find(feed_id)
 
-      user_feed = current_user.feeds.find_by_id(feed_id)
+      user_feed = current_user.feeds.find(feed_id)
       current_user.feeds << feed unless user_feed
       articles = get_articles(feed.url)
       ReadingArticle.add_reading_articles(feed_id, current_user.id, articles, logger)
@@ -43,8 +43,6 @@ class FeedsController < ApplicationController
       render :json => { :errors => e.to_s }, :status => 500  
     end
   end
-
-  
 
   private 
   

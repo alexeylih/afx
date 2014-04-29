@@ -16,3 +16,6 @@
 /tmp
 
 /config/initializers/devise.rb
+
+newfile.txt
+subscriptions.csv

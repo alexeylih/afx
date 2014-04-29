@@ -63,11 +63,9 @@ function GeneralCtrl($scope, $http) {
 
 function MessagesCtrl($scope, $timeout, $http){
 
-
-  
-      function getMessages(){
-        console.log(1);
-        return $http.get('/messages/recieved').then(function (response) {
+      $scope.getMessages = function(){
+            $http.get('/messages/recieved/read');
+            $http.get('/messages/recieved').then(function (response) {
             $scope.messages = response.data;
       }, 
       function (response) {
@@ -75,7 +73,15 @@ function MessagesCtrl($scope, $timeout, $http){
       });
     };   
 
-    $timeout(getMessages, 10);
+    $scope.destroyMessage = function(messageId){
+        $http.delete('/messages/'+messageId).success(function(){
+                getMessages();
+            });
+    };
+
+    $scope.getMessageClass = function(article) {
+        return { messageUnread: article.read === null || article.read === false };
+    };
 }
 
 
@@ -98,8 +104,20 @@ function UsersCtrl($scope, $http) {
     };
 
     $scope.openModel = function(user){
+        console.log('msgmodal');
         $('#messages_modal').foundation('reveal', 'open');
     };
+
+    $scope.addFriend = function(){
+        console.log('addFriend');
+        console.log($scope.selectedUser.id);
+        $http({
+                method: 'POST',
+                url: "relationships/",
+                data: $.param({subj_id: $scope.selectedUser.id}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+    }
 
     $scope.closeForm = function(){
        $http({

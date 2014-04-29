@@ -17,9 +17,10 @@
     <li ng-repeat="message in messages">
     <div class="row">
         <img class="small-6 columns" src="/assets/{{message.sender.pic}}"/>
-        <span data-ng-class="getMessageClass(message)">{{message.message_text}}</span>
+        <span data-ng-class="getMessageClass(message)">{{message.message_text}} - {{message.not_read}}</span>
     </div>
     <a ng-click="destroyMessage({{message.id}})")>&#215;</a>
+    <a> </a>
     </li> 
     </ul>
 
@@ -106,10 +107,6 @@
     <img ng-show="showMe" src="http://www.devcomponents.com/dotnetbar/img/CircularProgressAnimation.gif">
 </div>
 
- <div class="small-12 columns">
- asd asdasd asdasd
- </div>
-
 <div class="usersArea" ng-controller="UsersCtrl">
 
 <div id="users_modal" class="reveal-modal" data-reveal>
@@ -122,7 +119,8 @@
       </a>
       <p class="user-title">{{user.username}}</p>
       <ul id="hover1" class="f-dropdown" data-dropdown-content>
-          <li><a href="#" ng-click="openModel()" data-reveal-id="messages_modal">Send message</a></li>
+          <li><a ng-click="openModel()" data-reveal-id="messages_modal">Send message</a></li>
+          <li><a href="#" ng-click="addFriend()">Add Friend</a></li>
       </ul> 
     </li>
   </ul>

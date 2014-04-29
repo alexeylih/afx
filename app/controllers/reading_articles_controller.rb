@@ -1,18 +1,16 @@
 class ReadingArticlesController < ApplicationController
+  before_action :set_reading_article, include_only: [:read, :like]
 
   def read
-  	@reading_article = ReadingArticle.find(params[:id])
   	@reading_article.read = true 
   	@reading_article.save!
-
-  	render text: 'Read'
+    head :ok
   end
 
   def like
-  	@reading_article = ReadingArticle.find(params[:id])
   	@reading_article.like = true 
   	@reading_article.save!
-  	render text: 'Liked'
+  	head :ok
   end
 
 
@@ -22,9 +20,13 @@ class ReadingArticlesController < ApplicationController
   		a.read = false
   		a.save
   	end
-  	render text: 'Success'
+  	head :ok
   end 
 
+  private 
 
+  def set_reading_article 
+    @reading_article = ReadingArticle.find(params[:id])
+  end
 
 end

@@ -13,11 +13,73 @@
   </head>   
   <body>
 
+<div class="row">
+  <div class="poko" ng-controller="MessagesCtrl">
 
-    <%= yield %>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-resource.min.js"></script> 
-<%= javascript_include_tag "application" %>
+      <a class="large-3 columns" id="logo">Reader</a>
+
+      <messagemenu titlemm="Messages"></messagemenu>
+      
+      <a href="#" data-reveal-id="users_modal">Users</a>
+
+  </div>
+
+  <div ng-controller="NotificationsCtrl">
+    <!-- Message -->
+    <a href="#" data-dropdown="notificationsDrop" data-options="large" ng-click="getNotification()" class="dropdown large-3 columns">Notifications ({{previewContainer.not_read_count}}) </a>
+    <ul id="notificationsDrop" class="small f-dropdown" data-dropdown-content>
+    <li ng-repeat="message in previewContainer.messages">
+
+    <div ng-switch on="message.type">
+
+      <div ng-switch-when="FriendNotification" class="row" style="margin:10px 10px 10px; border-width: 1px;">
+          <img class="small-6 columns" src="/assets/{{message.friend.pic}}"/>
+          <p><b>{{message.friend.username}}</b> added you as a friend</p>
+      </div>    
+
+      <div ng-switch-when="SystemNotification" class="row" style="margin:10px 10px 10px; border-width: 1px;">
+          <p>System</p>
+      </div>    
+
+    </div>
+
+    </li> 
+  </div>
+
+    
+
+
+</div>
+
+<!--Login-->
+<div class="row">
+<div class="small-5 columns">
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+    <% if user_signed_in? %>  
+      Signed in as <%= current_user.username %>. Not you?  
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>  
+      <%= link_to 'Edit profile', edit_user_registration_path %>
+    <% else %>  
+      <%= link_to "Sign up", new_user_registration_path %> or  
+      <%= link_to "Sign in", new_user_session_path %>  
+      <li><%= link_to "Twitter", user_omniauth_authorize_path(:twitter) %></li>
+     </li> 
+    <% end %>  
+</div>
+</div>
+<!-- End Login -->
+
 
   </body>
 </html>
+
+    <%= yield %>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-resource.min.js"></script> 
+    <%= javascript_include_tag "application" %>
+
+
+  

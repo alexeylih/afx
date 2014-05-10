@@ -1,7 +1,18 @@
 ArctcFox::Application.routes.draw do
- devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
+  get "events/index"
+  get "event/index"
+
+  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
                      controllers: {omniauth_callbacks: "omniauth_callbacks",
                      registrations: "users/registrations" }
+
+  #static content
+  
+  get '/' => 'pages#index'
+  get "pages/events"
+
+  #end static content
+
 
 
   get "reading_articles/read"
@@ -15,7 +26,7 @@ ArctcFox::Application.routes.draw do
 
   resource :articles
   resources :subitems
-  resources :balls
+  
   resources :events
   resources :notifications
 
@@ -31,9 +42,6 @@ ArctcFox::Application.routes.draw do
   get 'messages/recieved' => 'messages#recieved'
   get 'messages/recieved/read' => 'messages#mark_all_as_read'
   delete 'messages/:id' => 'messages#destroy'
-
-
-
 
 
   # The priority is based upon order of creation: first created -> highest priority.

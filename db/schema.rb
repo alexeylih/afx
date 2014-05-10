@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140419193919) do
+ActiveRecord::Schema.define(version: 20140510160017) do
 
   create_table "articles", force: true do |t|
     t.text     "title"
@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(version: 20140419193919) do
     t.text     "arguments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "read"
+    t.integer  "subject_id"
+    t.text     "message"
   end
 
   create_table "reading_articles", force: true do |t|

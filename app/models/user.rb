@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   def add_friend(user)
     Friendship.create!({obj_id: id, subj_id: user.id})
     Event.create!({ user: self, verb: :add_friend, subject: user })
-    FriendNotification.create!({recipient: user})    
+    FriendNotification.create!({recipient: user, friend: self})    
   end 
 
   def events_of_friends

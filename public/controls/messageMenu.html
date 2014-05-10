@@ -1,0 +1,12 @@
+<!-- Message -->
+    <a href="#" data-dropdown="drop1" data-options="large" ng-click="getMessages()" class="dropdown large-3 columns">Messages ({{previewMessages.not_read_count}}) </a>
+    <ul id="drop1" class="small f-dropdown" data-dropdown-content>
+    <li ng-repeat="message in previewMessages.messages">
+    <div class="row">
+        <img class="small-6 columns" src="/assets/{{message.sender.pic}}"/>
+        <span data-ng-class="getMessageClass(message)">{{message.message_text}}</span>
+    </div>
+    <a ng-click="destroyMessage({{message.id}})")>&#215;</a>
+    </li> 
+    <li ng-if="previewMessages. >= 0">{{previewMessages.not_read_count}} more items</li>
+    </ul>

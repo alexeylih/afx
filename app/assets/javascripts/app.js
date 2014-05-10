@@ -1,9 +1,9 @@
 window.App = angular.module('App', ['ngResource'])
-.directive('testw', function () {
+.directive('messagemenu', function () {
     return {
       restrict: 'E',
-      template: '<p>Hello asdasd asdasd  sdasdasd</p>',      
-      link: function (scope, elem, attrs) {
-      }
+      templateUrl: '/controls/messageMenu.html',    
+      link: function (scope, elem, attrs) {}
   }
 });
+

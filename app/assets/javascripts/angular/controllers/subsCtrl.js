@@ -52,15 +52,6 @@ function SubsCtrl($scope, $http) {
     };
 }
 
-function GeneralCtrl($scope, $http) {
-    function getNotifications(){
-        var notifications = ['a','b', 'c'];
-        return notifications;
-    };
-
-    $scope.notifications = getNotifications();
-}
-
 function MessagesCtrl($scope, $timeout, $http){
 
       $scope.getMessages = function(){
@@ -82,6 +73,17 @@ function MessagesCtrl($scope, $timeout, $http){
     $scope.getMessageClass = function(article) {
         return { messageUnread: article.read === null || article.read === false };
     };
+}
+
+function NotificationsCtrl($scope, $timeout, $http){
+
+      $scope.getNotification = function(){
+            $http.get('/notifications').then(function (response) {
+            $scope.previewContainer = response.data;
+      }, 
+      function (response) {
+      });
+    };   
 }
 
 

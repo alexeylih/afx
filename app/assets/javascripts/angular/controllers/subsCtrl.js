@@ -66,7 +66,7 @@ function MessagesCtrl($scope, $timeout, $http){
       $scope.getMessages = function(){
             $http.get('/messages/recieved/read');
             $http.get('/messages/recieved').then(function (response) {
-            $scope.messages = response.data;
+            $scope.previewMessages = response.data;
       }, 
       function (response) {
         alert("Failed to load recieved messages")
@@ -74,7 +74,7 @@ function MessagesCtrl($scope, $timeout, $http){
     };   
 
     $scope.destroyMessage = function(messageId){
-        $http.delete('/messages/'+messageId).success(function(){
+        $http.delete('/messages/'+ messageId).success(function(){
                 getMessages();
             });
     };

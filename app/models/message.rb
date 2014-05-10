@@ -8,9 +8,10 @@ class Message < ActiveRecord::Base
 
 	scope :not_read, -> { where(read: [false, nil]) }
 
-	def serializable_hash(options = nil)
-      	result = super(options)
-      	result[:not_read_count] = Message.not_read.count
-      	result
+	def as_json(options={})
+		super(:include => 
+			{ :sender => { :methods => :pic }})
 	end
+
 end
+

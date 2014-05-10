@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+
+	MAX_DISPLAY_MESSAGES = 5
+
 	before_action :set_message, only: [:destroy]
 	skip_before_filter :verify_authenticity_token
 
@@ -20,9 +23,7 @@ class MessagesController < ApplicationController
 
 	def recieved
 		messages = current_user.recieved_messages
-
-		render json: messages.limit(5).to_json(:include => 
-			{ :sender => { :methods => :pic }}) 
+		render json: PreviewMessages.new(messages, MAX_DISPLAY_MESSAGES).to_json
 	end
 
 	def destroy 

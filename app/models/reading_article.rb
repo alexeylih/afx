@@ -10,15 +10,8 @@ class ReadingArticle < ActiveRecord::Base
 	validates :feed, presence: true
 	validates :article, presence: true
 
-	after_initialize :default_values
-
-
-    def default_values
-      # self.read = false
-      # self.like = false
-    end
-
-
+	#after_initialize :default_values
+    
 	def as_json(options = { })
     	jsonReadingArticle = super(options)
     	jsonReadingArticle[:title] = title
@@ -31,8 +24,7 @@ class ReadingArticle < ActiveRecord::Base
 		new_reading_articles_added = 0
 
 		articles.each do |new_article|
-			logger.debug new_article.to_yaml
-
+			
 			article_data = Article.find_by_url(new_article.url) 
 
 			unless article_data

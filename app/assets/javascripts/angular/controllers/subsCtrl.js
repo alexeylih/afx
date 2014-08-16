@@ -46,8 +46,8 @@ function SubsCtrl($scope, $http) {
         url: "feeds/",
         data: $.param({title: "jecky", url: this.urlToAdd}),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-        .then(function(){}, function(){
-            alert("fail");
+        .then(function(){}, function(response){
+            alert("fail " + response.data.errors);
         })
     };
 }

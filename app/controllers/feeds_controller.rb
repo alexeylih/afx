@@ -8,7 +8,16 @@ class FeedsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-  	render json: current_user.feeds.all
+    case params[:retrieve]
+    when "all"
+      feeds = Feed.all
+    when "recommended"
+      feeds = current_user.feeds.recommended
+    else
+      feeds = current_user.feeds.all  
+    end
+
+  	render json: feeds
   end
 
   def show 
@@ -23,17 +32,17 @@ class FeedsController < ApplicationController
       render json: current_user.reading_articles.where(feed_id: feed_id).order(created_at: :desc)
 
     rescue => e
-      logger.debug e.to_s
-      render :json => { :errors => e.to_s }, :status => 500  
+      render_json_error 500, e.to_s
     end
   end 
 
   def create
     begin
 
-      render :json => { :errors => "Already exists" }, :status => 500  if current_user.feeds.find_by_url(params[:url])
+      render_json_error 500, "Already exists" if current_user.feeds.find_by_url(params[:url])
 
-      feed = Feed.new(url: params[:url], title: "title") 
+      feed = Feed.new(url: params[:url]) 
+      
       if feed.save
         current_user.feeds << feed
         render json: feed
@@ -41,8 +50,7 @@ class FeedsController < ApplicationController
         render :json => { :errors => feed.errors.first.to_s }, :status => 433  
       end
     rescue => e
-      logger.debug e.to_s
-      render :json => { :errors => e.to_s }, :status => 500  
+        
     end
   end
 

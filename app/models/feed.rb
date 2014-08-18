@@ -25,4 +25,14 @@ class Feed < ActiveRecord::Base
 		end
 	end
 
+	def self.recommended(user)
+		user.friends.inject { |feeds, usr|
+			feeds+=usr.feeds
+		}
+	end 
+
+	def self.hr
+		@relation.count
+	end
+
 end

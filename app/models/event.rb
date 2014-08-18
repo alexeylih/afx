@@ -4,7 +4,12 @@ class Event < ActiveRecord::Base
 	validates :verb, presence: true
 
 	def to_s
-		created_at.to_s + " " + user.username + " " + verb + " " + subject.to_s
+		case verb
+		when "add_friend"
+			"#{created_at.to_s}: #{user.username} added new friend #{subject.username}"
+		else
+			raise RuntimeError
+		end
 	end 
 
 	def as_json(options = {})

@@ -14,9 +14,8 @@ ArctcFox::Application.routes.draw do
   #end static content
 
 
-
-  get "reading_articles/read"
-  get "reading_articles/like"
+  post "reading_articles/read"
+  post "reading_articles/like"
   get "feeds/index"
   get "feed/index"
 
@@ -99,3 +98,4 @@ ArctcFox::Application.routes.draw do
   #     resources :products
   #   end
 end
+  

@@ -4,8 +4,6 @@ class Notification < ActiveRecord::Base
 
 	scope :not_read, -> { where(read: [false, nil]) }
 
-
-
 	def as_json(options={})
 		super(options.merge({:methods => :type}))
 	end

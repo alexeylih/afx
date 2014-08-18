@@ -13,7 +13,6 @@ class ReadingArticlesController < ApplicationController
   	head :ok
   end
 
-
   def reset_all
   	ReadingArticle.all.each do |a|
   		a.like = false

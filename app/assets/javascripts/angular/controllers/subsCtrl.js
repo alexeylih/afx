@@ -1,5 +1,8 @@
 function SubsCtrl($scope, $http) {
 
+    $scope.isLoading = false;
+    $scope.subs = getSubs();
+
     function getSubs() {
         return $http.get('/feeds').then(function (response) {
             return response.data;
@@ -11,7 +14,9 @@ function SubsCtrl($scope, $http) {
 
     function getSubitems(feed_id) {
         url = '/feeds/' + feed_id;
+        $scope.isLoading = true;
         return $http.get(url).then(function (response) {
+            $scope.isLoading = false;
             return response.data;
         }, 
         function (response) {
@@ -19,12 +24,8 @@ function SubsCtrl($scope, $http) {
         });
     };  
 
-	$scope.subs = getSubs();
-	$scope.loadingItemsCount = 0;
     
 	$scope.loadData = function(feed_id) {
-		$scope.showMe = true;
-		$scope.loadingItemsCount++;
 		$scope.subitems = getSubitems(feed_id);	
   	};
 
@@ -106,13 +107,10 @@ function UsersCtrl($scope, $http) {
     };
 
     $scope.openModel = function(user){
-        console.log('msgmodal');
         $('#messages_modal').foundation('reveal', 'open');
     };
 
     $scope.addFriend = function(){
-        console.log('addFriend');
-        console.log($scope.selectedUser.id);
         $http({
                 method: 'POST',
                 url: "relationships/",

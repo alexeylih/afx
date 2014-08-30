@@ -10,6 +10,7 @@ ArctcFox::Application.routes.draw do
   
   get '/' => 'pages#index'
   get "pages/events"
+  get 'feeds_all' => 'pages#feeds'
 
   #end static content
 

@@ -4,4 +4,6 @@ class PagesController < ApplicationController
 
   def events; end
 
+  def feeds; end
+
 end

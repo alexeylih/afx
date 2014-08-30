@@ -10,14 +10,13 @@ class FeedsController < ApplicationController
   def index
     case params[:retrieve]
     when "all"
-      feeds = Feed.all
+      @feeds = Feed.all
     when "recommended"
-      feeds = current_user.feeds.recommended
+      @feeds = current_user.feeds.recommended
     else
-      feeds = current_user.feeds.all  
+      @feeds = current_user.feeds.all  
     end
-
-  	render json: feeds
+  	render json: @feeds
   end
 
   def show 
